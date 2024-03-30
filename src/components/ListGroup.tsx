@@ -3,16 +3,12 @@ import { useState } from "react";
 interface Props {
   items: string[];
   heading: string;
+  onSelectItem: (item: string) => void;
 }
 
-function ListGroup({ items, heading }: Props) {
-  // let items = ["New York", "Chicago", "Denver", "Phoenix", "Los Angeles"];
+function ListGroup({ items, heading, onSelectItem }: Props) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
-
   const message = items.length === 0 ? <p>No Item found</p> : null;
-
-  // const handleClick = (event: MouseEvent) => console.log(event);
-
   return (
     <>
       <h1>{heading}</h1>
@@ -29,6 +25,7 @@ function ListGroup({ items, heading }: Props) {
             onClick={(event) => {
               console.log(item, index, event);
               setSelectedIndex(index);
+              onSelectItem(item);
             }}
           >
             {item}
