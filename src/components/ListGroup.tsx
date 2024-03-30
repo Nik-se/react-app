@@ -1,5 +1,14 @@
 function ListGroup() {
-  const items = ["New York", "Chicago", "Denver", "Phoenix", "Los Angeles"];
+  let items = ["New York", "Chicago", "Denver", "Phoenix", "Los Angeles"];
+  items = [];
+
+  if (items.length === 0)
+    return (
+      <>
+        <h1>List</h1>
+        <p>No Item found</p>
+      </>
+    );
 
   return (
     <>
