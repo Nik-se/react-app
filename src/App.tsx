@@ -1,11 +1,19 @@
 import ListGroup from "./components/ListGroup";
+import Alerts from "./components/Alerts";
 
 function App() {
-  let items = ["New York", "Chicago", "Denver", "Phoenix", "Los Angeles"];
+  return (
+    <div>
+      <Alerts text="Nikola" />
+    </div>
+  );
+
+  /*
+    let items = ["New York", "Chicago", "Denver", "Phoenix", "Los Angeles"];
   const handleSelectItem = (item: string) => {
     console.log(item);
   };
-  return (
+    return (
     <div>
       <ListGroup
         items={items}
@@ -14,6 +22,7 @@ function App() {
       />
     </div>
   );
+  */
 }
 
 export default App;
