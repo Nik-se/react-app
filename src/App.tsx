@@ -4,7 +4,9 @@ import Alerts from "./components/Alerts";
 function App() {
   return (
     <div>
-      <Alerts text="Nikola" />
+      <Alerts>
+        Nikola <span> Markovic </span>
+      </Alerts>
     </div>
   );
 
