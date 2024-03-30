@@ -1,6 +1,5 @@
 function ListGroup() {
   let items = ["New York", "Chicago", "Denver", "Phoenix", "Los Angeles"];
-  items = [];
 
   const message = items.length === 0 ? <p>No Item found</p> : null;
 
@@ -10,7 +9,13 @@ function ListGroup() {
       {message}
       <ul className="list-group">
         {items.map((item) => (
-          <li key={item}>{item}</li>
+          <li
+            className="list-group-item"
+            key={item}
+            onClick={(event) => console.log(item, event)}
+          >
+            {item}
+          </li>
         ))}
       </ul>
     </>
