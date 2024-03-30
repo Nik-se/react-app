@@ -1,6 +1,6 @@
-import { Fragment } from "react/jsx-runtime";
-
 function ListGroup() {
+  const items = ["New York", "Chicago", "Denver"];
+
   return (
     <>
       <h1>LIST</h1>
