@@ -4,6 +4,7 @@ import Button from "./components/Button";
 import State from "./components/StatesAndCities";
 import { SubmitAnswers } from "./services/AnswerService";
 import { Answer } from "./services/AnswerService";
+import Card from "./components/Card";
 
 function App() {
   const [stateData, setStateData] = useState([]);
@@ -79,6 +80,11 @@ function App() {
           <div>
             <Button onClick={handleSubmit} label="Submit" />
           </div>
+        </div>
+      </div>
+      <div className="d-flex justify-content-center p-5">
+        <div>
+          <Card />
         </div>
       </div>
     </>
