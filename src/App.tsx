@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import ListGroup from "./components/ListGroup";
 import Button from "./components/Button";
 import State from "./components/StatesAndCities";
+import { SubmitAnswers } from "./services/AnswerService";
+import { Answer } from "./services/AnswerService";
 
 function App() {
   const [stateData, setStateData] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState<Answer[]>([]);
 
   useEffect(() => {
     async function fetchStateData() {
@@ -25,7 +28,12 @@ function App() {
   const items = [cityName1, cityName2, cityName3, cityName4, cityName5];
 
   const handleSelectItem = (item: string) => {
-    console.log(item);
+    const updatedAnswers = [...answers]; // Copying the answers array
+    updatedAnswers[currentQuestionIndex] = {
+      stateName: stateName,
+      capitolCity: item,
+    };
+    setAnswers(updatedAnswers);
   };
 
   const handleNextQuestion = () => {
@@ -40,8 +48,13 @@ function App() {
     }
   };
 
-  const handleSubmit = () => {
-    console.log("submit");
+  const handleSubmit = async () => {
+    try {
+      await SubmitAnswers(answers);
+      console.log("Answers submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting answers:", error);
+    }
   };
 
   return (
