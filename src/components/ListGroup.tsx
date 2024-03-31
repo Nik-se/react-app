@@ -13,25 +13,27 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
     <>
       <h1>{heading}</h1>
       {message}
-      <ul className="list-group">
-        {items.map((item, index) => (
-          <li
-            className={
-              selectedIndex === index
-                ? "list-group-item active"
-                : "list-group-item"
-            }
-            key={item}
-            onClick={(event) => {
-              console.log(item, index, event);
-              setSelectedIndex(index);
-              onSelectItem(item);
-            }}
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
+      <div className="container-sm">
+        <ul className="list-group">
+          {items.map((item, index) => (
+            <li
+              className={
+                selectedIndex === index
+                  ? "list-group-item active"
+                  : "list-group-item"
+              }
+              key={item}
+              onClick={(event) => {
+                console.log(item, index, event);
+                setSelectedIndex(index);
+                onSelectItem(item);
+              }}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
