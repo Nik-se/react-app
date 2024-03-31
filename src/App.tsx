@@ -40,6 +40,10 @@ function App() {
     }
   };
 
+  const handleSubmit = () => {
+    console.log("submit");
+  };
+
   return (
     <>
       <div>
@@ -58,6 +62,9 @@ function App() {
           <div className="text-center ml-2">
             <Button onClick={handlePreviousQuestion} label="Previous" />
             <Button onClick={handleNextQuestion} label="Next" />
+          </div>
+          <div>
+            <Button onClick={handleSubmit} label="Submit" />
           </div>
         </div>
       </div>
