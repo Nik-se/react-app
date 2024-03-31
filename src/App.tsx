@@ -4,7 +4,8 @@ import Button from "./components/Button";
 import State from "./components/StatesAndCities";
 
 function App() {
-  const [stateData, setStateData] = useState(null);
+  const [stateData, setStateData] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
     async function fetchStateData() {
@@ -14,17 +15,29 @@ function App() {
     fetchStateData();
   }, []);
 
-  if (!stateData) {
+  if (!stateData.length) {
     // Render loading state while fetching data
     return <div>Loading...</div>;
   }
 
   const { stateName, cityName1, cityName2, cityName3, cityName4, cityName5 } =
-    stateData;
+    stateData[currentQuestionIndex];
   const items = [cityName1, cityName2, cityName3, cityName4, cityName5];
 
   const handleSelectItem = (item: string) => {
     console.log(item);
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < stateData.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
+  };
+
+  const handlePreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
   };
 
   return (
@@ -33,9 +46,7 @@ function App() {
         <h1 className="text-center text-bg-primary p-3">USA STATES CAPITOLS</h1>
       </div>
       <div>
-        <h4 className="text-center">
-          What is the capitol city of {stateName}?
-        </h4>
+        <h4 className="text-center">What is the capitol city of</h4>
       </div>
       <div className="d-flex justify-content-center">
         <div className="text-center">
@@ -45,7 +56,8 @@ function App() {
             onSelectItem={handleSelectItem}
           />
           <div className="text-center ml-2">
-            <Button />
+            <Button onClick={handlePreviousQuestion} label="Previous" />
+            <Button onClick={handleNextQuestion} label="Next" />
           </div>
         </div>
       </div>
