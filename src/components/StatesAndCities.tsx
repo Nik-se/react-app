@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { StateName } from "../services/USQuizService";
 
 const State = async () => {

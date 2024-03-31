@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import ListGroup from "./components/ListGroup";
 import Button from "./components/Button";
 import State from "./components/StatesAndCities";
