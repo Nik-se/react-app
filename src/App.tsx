@@ -96,10 +96,10 @@ function App() {
   return (
     <>
       <div>
-        <h1 className="text-center text-bg-primary p-3">USA STATES CAPITOLS</h1>
+        <h1 className="text-center text-bg-primary p-3">USA STATES CAPITALS</h1>
       </div>
       <div>
-        <h4 className="text-center">What is the capitol city of</h4>
+        <h4 className="text-center">What is the capital city of</h4>
       </div>
       <div className="d-flex justify-content-center">
         <div className="text-center">
