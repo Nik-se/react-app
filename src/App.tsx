@@ -31,7 +31,7 @@ function App() {
       <>
         <div>
           <h1 className="text-center text-bg-primary p-3">
-            USA STATES CAPITOLS
+            USA STATES CAPITALS
           </h1>
         </div>
         <div className="d-flex justify-content-center p-3">
