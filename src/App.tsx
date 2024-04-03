@@ -98,6 +98,16 @@ function App() {
       });
       const isAuthenticated = response.data.authenticated;
       setAuthenticated(isAuthenticated);
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.error("Error fetching state data:", error);
+    }
+  };
+
+  const handleToLogin = async () => {
+    try {
+      setCreateNewAccd(false);
     } catch (error) {
       console.error("Error fetching state data:", error);
     }
@@ -248,6 +258,9 @@ function App() {
                         </label>
                       </div>
                       <Button onClick={handleSignUp} label="Sign Up" />
+                      <div>
+                        <Button onClick={handleToLogin} label="Back" />
+                      </div>
                     </form>
                   </div>
                 </div>
@@ -265,6 +278,14 @@ function App() {
       setStateData(data); // Set state data
       setStarted(true); // Set started to true after clicking "Start"
       setSubmitted(false);
+    } catch (error) {
+      console.error("Error fetching state data:", error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      setAuthenticated(false);
     } catch (error) {
       console.error("Error fetching state data:", error);
     }
@@ -291,6 +312,9 @@ function App() {
         )}
         <div className="text-center">
           <Button onClick={handleStart} label="Start" />
+        </div>
+        <div className="text-center">
+          <Button onClick={handleLogout} label="Logout" />
         </div>
       </>
     );
