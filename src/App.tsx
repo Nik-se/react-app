@@ -6,6 +6,7 @@ import { SubmitAnswers } from "./services/AnswerService";
 import { Answer } from "./services/AnswerService";
 import Card from "./components/Card";
 import { Authenticate } from "./services/AuthenticateService";
+import { SignUp } from "./services/RegisterService";
 
 function App() {
   const [stateData, setStateData] = useState([]);
@@ -15,9 +16,15 @@ function App() {
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [authenticated, setAuthenticated] = useState(false);
-  const [createNewAcc, setCreateNewAccd] = useState(true);
+  const [createNewAcc, setCreateNewAccd] = useState(false);
   const [email, setEmail] = useState("");
-  const [passw, setPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [emailAddres, setEmAdd] = useState("");
+  const [userName, setUserName] = useState("");
+  const [passw, setPassw] = useState("");
+  const [confPassw, setConfPassw] = useState("");
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -27,11 +34,56 @@ function App() {
     setPassword(event.target.value);
   };
 
+  const handleRegister = async () => {
+    setCreateNewAccd(true);
+  };
+
+  const handleFNChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLNChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setLastName(event.target.value);
+  };
+
+  const handleEAChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmAdd(event.target.value);
+  };
+
+  const handleUNChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUserName(event.target.value);
+  };
+
+  const handlePWDChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassw(event.target.value);
+  };
+
+  const handleCPWDChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setConfPassw(event.target.value);
+  };
+
+  const handleSignUp = async () => {
+    try {
+      const response = await SignUp({
+        firstName: firstName,
+        lastName: lastName,
+        userName: userName,
+        email: emailAddres,
+        password: passw,
+        confirmPassword: confPassw,
+      });
+      const firstN = response.data.firdtName;
+      setCreateNewAccd(firstN === null);
+    } catch (error) {
+      console.error("Error fetching state data:", error);
+    }
+  };
+
   const handleLogin = async () => {
     try {
       const response = await Authenticate({
         emailOrUserName: email,
-        password: passw,
+        password: password,
       });
       const isAuthenticated = response.data.authenticated;
       setAuthenticated(isAuthenticated);
@@ -65,7 +117,7 @@ function App() {
               type="password"
               id="form2Example2"
               className="form-control"
-              value={passw}
+              value={password}
               onChange={handlePasswordChange}
             />
             <label className="form-label" htmlFor="form2Example2">
@@ -82,9 +134,7 @@ function App() {
             <Button onClick={handleLogin} label="Login" />
           </div>
           <div className="text-center" style={{ margin: "10px auto 0 auto" }}>
-            <p>
-              Not a member? <a href="#!">Register</a>
-            </p>
+            <Button onClick={handleRegister} label="Sign Up" />
           </div>
         </div>
       </form>
@@ -106,6 +156,8 @@ function App() {
                               type="text"
                               id="form3Example1"
                               className="form-control"
+                              value={firstName}
+                              onChange={handleFNChange}
                             />
                             <label
                               className="form-label"
@@ -121,6 +173,8 @@ function App() {
                               type="text"
                               id="form3Example2"
                               className="form-control"
+                              value={lastName}
+                              onChange={handleLNChange}
                             />
                             <label
                               className="form-label"
@@ -137,6 +191,8 @@ function App() {
                           type="email"
                           id="form3Example3"
                           className="form-control"
+                          value={emailAddres}
+                          onChange={handleEAChange}
                         />
                         <label className="form-label" htmlFor="form3Example3">
                           Email address
@@ -148,6 +204,8 @@ function App() {
                           type="email"
                           id="form3Example3b"
                           className="form-control"
+                          value={userName}
+                          onChange={handleUNChange}
                         />
                         <label className="form-label" htmlFor="form3Example3">
                           User name
@@ -159,6 +217,8 @@ function App() {
                           type="password"
                           id="form3Example4"
                           className="form-control"
+                          value={passw}
+                          onChange={handlePWDChange}
                         />
                         <label className="form-label" htmlFor="form3Example4">
                           Password
@@ -169,18 +229,14 @@ function App() {
                           type="password"
                           id="form3Example4b"
                           className="form-control"
+                          value={confPassw}
+                          onChange={handleCPWDChange}
                         />
                         <label className="form-label" htmlFor="form3Example4">
                           Confirm Password
                         </label>
                       </div>
-
-                      <button
-                        type="submit"
-                        className="btn btn-primary btn-block mb-4"
-                      >
-                        Sign up
-                      </button>
+                      <Button onClick={handleSignUp} label="Sign Up" />
                     </form>
                   </div>
                 </div>

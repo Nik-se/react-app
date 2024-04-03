@@ -12,5 +12,5 @@ export interface Account {
   confirmPassword: String;
 }
 
-export const Authenticate = (account: Account) =>
+export const SignUp = (account: Account) =>
   axios.post(BASE_URI + "register", account);
