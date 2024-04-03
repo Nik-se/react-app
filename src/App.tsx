@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import ListGroup from "./components/ListGroup";
 import Button from "./components/Button";
 import State from "./components/StatesAndCities";
@@ -9,13 +9,19 @@ import { Authenticate } from "./services/AuthenticateService";
 import { SignUp } from "./services/RegisterService";
 
 function App() {
-  const [stateData, setStateData] = useState([]);
+  const [stateData, setStateData] = useState(() => {
+    const savedState = sessionStorage.getItem("stateData");
+    return savedState ? JSON.parse(savedState) : [];
+  });
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [started, setStarted] = useState(false); // State to track if the "Start" button is clicked
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(() => {
+    const storedAuthStatus = sessionStorage.getItem("authenticated");
+    return storedAuthStatus ? JSON.parse(storedAuthStatus) : false;
+  });
   const [createNewAcc, setCreateNewAccd] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +31,11 @@ function App() {
   const [userName, setUserName] = useState("");
   const [passw, setPassw] = useState("");
   const [confPassw, setConfPassw] = useState("");
+
+  // Update sessionStorage whenever stateData changes
+  useEffect(() => {
+    sessionStorage.setItem("authenticated", JSON.stringify(authenticated));
+  }, [authenticated]);
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
