@@ -235,20 +235,6 @@ function App() {
                           Email address
                         </label>
                       </div>
-
-                      <div className="form-outline mb-4">
-                        <input
-                          type="email"
-                          id="form3Example3b"
-                          className="form-control"
-                          value={userName}
-                          onChange={handleUNChange}
-                        />
-                        <label className="form-label" htmlFor="form3Example3">
-                          User name
-                        </label>
-                      </div>
-
                       <div className="form-outline mb-4">
                         <input
                           type="password"
