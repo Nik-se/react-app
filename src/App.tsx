@@ -7,6 +7,7 @@ import { Answer } from "./services/AnswerService";
 import Card from "./components/Card";
 import { Authenticate } from "./services/AuthenticateService";
 import { SignUp } from "./services/RegisterService";
+import axios from "axios";
 
 function App() {
   const [stateData, setStateData] = useState(() => {
@@ -22,6 +23,10 @@ function App() {
     const storedAuthStatus = sessionStorage.getItem("authenticated");
     return storedAuthStatus ? JSON.parse(storedAuthStatus) : false;
   });
+  const [token, setToken] = useState<string>(() => {
+    const storedToken = sessionStorage.getItem("token");
+    return storedToken ? JSON.parse(storedToken) : "";
+  });
   const [createNewAcc, setCreateNewAccd] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,10 +37,16 @@ function App() {
   const [passw, setPassw] = useState("");
   const [confPassw, setConfPassw] = useState("");
 
+  axios.interceptors.request.use((config) => {
+    config.headers.authorization = token;
+    return config;
+  });
+
   // Update sessionStorage whenever stateData changes
   useEffect(() => {
     sessionStorage.setItem("authenticated", JSON.stringify(authenticated));
-  }, [authenticated]);
+    sessionStorage.setItem("token", JSON.stringify(token));
+  }, [authenticated, token]);
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -96,7 +107,12 @@ function App() {
         emailOrUserName: email,
         password: password,
       });
-      const isAuthenticated = response.data.authenticated;
+      let isAuthenticated = false;
+      const bTok = "Bearer " + response.data.access_token;
+      if (bTok != null) {
+        setToken(bTok);
+        isAuthenticated = true;
+      }
       setAuthenticated(isAuthenticated);
       setEmail("");
       setPassword("");
